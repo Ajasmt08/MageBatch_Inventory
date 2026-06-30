@@ -150,6 +150,3 @@ MageBatch/Inventory/
 - `magebatch_inventory_reservation` — FEFO reservation tracking
 - `magebatch_inventory_history` — Audit log
 
-## License
-
-Proprietary
