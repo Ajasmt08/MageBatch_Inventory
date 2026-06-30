@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magebatch" translate="label" sortOrder="300">
+            <label>MageBatch</label>
+        </tab>
+        <section id="magebatch_inventory" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Inventory Batch Management</label>
+            <tab>magebatch</tab>
+            <resource>MageBatch_Inventory::inventory_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_batch_tracking" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Batch Tracking</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="enable_fefo" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable FEFO Allocation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends><field id="enable_batch_tracking">1</field></depends>
+                </field>
+                <field id="enable_expiry_processing" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Expiry Processing</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="enable_expiry_alerts" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Expiry Alerts</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends><field id="enable_expiry_processing">1</field></depends>
+                </field>
+                <field id="enable_batch_recall" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Batch Recall</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="expiry_warning_days" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Expiry Warning Days</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="near_expiry_threshold" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Near Expiry Threshold (days)</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="notification_email" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Notification Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

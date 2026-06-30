@@ -1,0 +1,47 @@
+<form action="<?= $block->getUrl('magebatch_inventory/batch/receivePost') ?>" method="post">
+    <?= $block->getBlockHtml('formkey') ?>
+    <fieldset class="admin__fieldset">
+        <legend class="admin__legend"><?= $block->escapeHtml(__('Receive Stock')) ?></legend>
+        <div class="admin__field">
+            <label class="admin__field-label" for="product_sku"><?= $block->escapeHtml(__('Product SKU')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="product_sku" name="product_sku" class="admin__control-text" required="true"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="batch_number"><?= $block->escapeHtml(__('Batch Number')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="batch_number" name="batch_number" class="admin__control-text" required="true"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="source_code"><?= $block->escapeHtml(__('Source Code')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="source_code" name="source_code" class="admin__control-text" required="true"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="qty"><?= $block->escapeHtml(__('Quantity')) ?></label>
+            <div class="admin__field-control">
+                <input type="number" id="qty" name="qty" class="admin__control-text" required="true" step="0.01"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="expiry_date"><?= $block->escapeHtml(__('Expiry Date')) ?></label>
+            <div class="admin__field-control">
+                <input type="date" id="expiry_date" name="expiry_date" class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="manufacturing_date"><?= $block->escapeHtml(__('Manufacturing Date')) ?></label>
+            <div class="admin__field-control">
+                <input type="date" id="manufacturing_date" name="manufacturing_date" class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <div class="admin__field-control">
+                <button type="submit" class="action-primary"><?= $block->escapeHtml(__('Receive Stock')) ?></button>
+            </div>
+        </div>
+    </fieldset>
+</form>

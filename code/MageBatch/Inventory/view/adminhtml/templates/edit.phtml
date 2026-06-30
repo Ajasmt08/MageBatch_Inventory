@@ -1,0 +1,43 @@
+<form action="<?= $block->getUrl('magebatch_inventory/batch/editPost') ?>" method="post">
+    <?= $block->getBlockHtml('formkey') ?>
+    <fieldset class="admin__fieldset">
+        <legend class="admin__legend"><?= $block->escapeHtml(__('Edit Batch')) ?></legend>
+        <div class="admin__field">
+            <label class="admin__field-label" for="batch_id"><?= $block->escapeHtml(__('Batch ID')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="batch_id" name="batch_id" class="admin__control-text" readonly="true"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="status"><?= $block->escapeHtml(__('Status')) ?></label>
+            <div class="admin__field-control">
+                <select id="status" name="status" class="admin__control-select">
+                    <option value="1"><?= $block->escapeHtml(__('Active')) ?></option>
+                    <option value="2"><?= $block->escapeHtml(__('Sold Out')) ?></option>
+                    <option value="3"><?= $block->escapeHtml(__('Expired')) ?></option>
+                    <option value="4"><?= $block->escapeHtml(__('Recalled')) ?></option>
+                    <option value="5"><?= $block->escapeHtml(__('Damaged')) ?></option>
+                    <option value="6"><?= $block->escapeHtml(__('Quarantined')) ?></option>
+                    <option value="7"><?= $block->escapeHtml(__('Reserved')) ?></option>
+                </select>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="expiry_date"><?= $block->escapeHtml(__('Expiry Date')) ?></label>
+            <div class="admin__field-control">
+                <input type="date" id="expiry_date" name="expiry_date" class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="notes"><?= $block->escapeHtml(__('Notes')) ?></label>
+            <div class="admin__field-control">
+                <textarea id="notes" name="notes" class="admin__control-textarea"></textarea>
+            </div>
+        </div>
+        <div class="admin__field">
+            <div class="admin__field-control">
+                <button type="submit" class="action-primary"><?= $block->escapeHtml(__('Save')) ?></button>
+            </div>
+        </div>
+    </fieldset>
+</form>

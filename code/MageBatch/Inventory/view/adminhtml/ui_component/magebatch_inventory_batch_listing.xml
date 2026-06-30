@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">magebatch_inventory_batch_listing.magebatch_inventory_batch_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/receive"/>
+                <class>primary</class>
+                <label translate="true">Receive Stock</label>
+            </button>
+        </buttons>
+        <spinner>magebatch_inventory_batch_columns</spinner>
+        <deps>
+            <dep>magebatch_inventory_batch_listing.magebatch_inventory_batch_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="magebatch_inventory_batch_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">batch_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>MageBatch_Inventory::inventory_view</aclResource>
+        <dataProvider class="MageBatch\Inventory\Ui\DataProvider\Batch\ListingDataProvider" name="magebatch_inventory_batch_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>batch_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="magebatch_inventory_batch_columns">
+        <column name="batch_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="batch_number">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Batch Number</label>
+            </settings>
+        </column>
+        <column name="product_sku">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product SKU</label>
+            </settings>
+        </column>
+        <column name="source_code">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Source</label>
+            </settings>
+        </column>
+        <column name="qty_remaining">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Qty Remaining</label>
+            </settings>
+        </column>
+        <column name="expiry_date">
+            <settings>
+                <filter>date</filter>
+                <label translate="true">Expiry Date</label>
+            </settings>
+        </column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="MageBatch\Inventory\Model\Batch\Source\Status"/>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="MageBatch\Inventory\Ui\Component\Batch\Actions">
+            <settings>
+                <label translate="true">Action</label>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>
