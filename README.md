@@ -18,7 +18,7 @@ Magento 2 batch inventory management with FEFO allocation, expiry management, re
 
 ### 1. Product Page — Batch Stock Management
 
-![Product Page Batch Management](app/code/MageBatch/Inventoryimg/1.png)
+![Product Page Batch Management](app/code/MageBatch/Inventory/img/1.png)
 
 The **Batch Stock Management** accordion on the product edit page allows you to view all existing batches for the product in a sortable table (batch number, source, quantity, expiry date, status). Below the table, use the form to receive new stock by entering source, batch number, quantity, expiry date, and optional fields (manufacturing date, supplier, PO, cost price, notes). Click **Receive Stock** to instantly create the batch and update inventory.
 
