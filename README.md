@@ -100,18 +100,6 @@ When FEFO is enabled, orders automatically allocate from the soonest-expiring ba
 2. Creates a Magento inventory reservation
 3. Logs to audit history
 
-### Batch Statuses
-
-| Status | Description |
-|--------|-------------|
-| Active | Available for allocation |
-| Reserved | Reserved for pending orders |
-| Sold Out | Fully depleted |
-| Expired | Past expiry date |
-| Recalled | Manufacturer recall |
-| Damaged | Physically damaged |
-| Quarantined | Held for quality review |
-
 ## Architecture
 
 ```
