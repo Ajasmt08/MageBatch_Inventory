@@ -8,7 +8,7 @@ Magento 2 batch inventory management with FEFO allocation, expiry management, re
 - **Batch Tracking** — Track inventory by batch number, source, expiry date, manufacturing date, supplier, PO, cost price
 - **Stock Receiving** — Receive stock into batches with automatic Magento source & source item creation
 - **Product Page Management** — Receive stock and view batch data directly from the product edit form
-- **Status Management** — Active, Sold Out, Expired, Recalled, Damaged, Quarantined, Reserved
+- **Status Management** — Active, Sold Out, Expired, Recalled
 - **Audit History** — Full change log for all batch operations (received, allocated, adjusted)
 - **Admin Grids** — Browse all batches and history with filtering, sorting, and search
 - **Dashboard** — Quick overview of batch stock, expiring soon, and recall status
@@ -18,13 +18,13 @@ Magento 2 batch inventory management with FEFO allocation, expiry management, re
 
 ### 1. Product Page — Batch Stock Management
 
-![Product Page Batch Management](code/MageBatch/Inventory/img/1.png)
+![Product Page Batch Management](app/code/MageBatch/Inventory/img/1.png)
 
 The **Batch Stock Management** accordion on the product edit page allows you to view all existing batches for the product in a sortable table (batch number, source, quantity, expiry date, status). Below the table, use the form to receive new stock by entering source, batch number, quantity, expiry date, and optional fields (manufacturing date, supplier, PO, cost price, notes). Click **Receive Stock** to instantly create the batch and update inventory.
 
 ### 2. Dashboard
 
-![Dashboard](code/MageBatch/Inventory/img/2.png)
+![Dashboard](app/code/MageBatch/Inventory/img/2.png)
 
 The **Dashboard** provides a quick overview of your batch inventory health:
 - Total active batches and units in stock
@@ -34,13 +34,13 @@ The **Dashboard** provides a quick overview of your batch inventory health:
 
 ### 3. Inventory Batches Grid
 
-![Inventory Batches Grid](code/MageBatch/Inventory/img/3.png)
+![Inventory Batches Grid](app/code/MageBatch/Inventory/img/3.png)
 
 The **Inventory Batches** grid lists all batch records across products and sources. Use the toolbar to filter, sort, and search batches by ID, batch number, product SKU, source, quantity remaining, expiry date, or status. Each row has a **History** action to view the full audit trail for that batch. Use the **Receive Stock** button to add new inventory.
 
 ### 4. History Grid
 
-![History Grid](code/MageBatch/Inventory/img/4.png)
+![History Grid](app/code/MageBatch/Inventory/img/4.png)
 
 The **History** grid is the audit log for all batch operations. Every stock movement is recorded with:
 - **Timestamp** — When the operation occurred
@@ -53,7 +53,7 @@ This provides complete visibility into inventory changes for compliance and trou
 
 ### 5. Configuration
 
-![Configuration](code/MageBatch/Inventory/img/5.png)
+![Configuration](app/code/MageBatch/Inventory/img/5.png)
 
 The module configuration is located at **Stores → Configuration → MageBatch → Inventory**:
 
@@ -84,57 +84,3 @@ Stores → Configuration → MageBatch → Inventory
 |---------|-------------|
 | Enable FEFO Allocation | Enables automatic FEFO allocation on order placement |
 | Default Source | Default inventory source code |
-
-## Usage
-
-### Receiving Stock
-
-**Product Page:** Open a product → "Batch Stock Management" accordion → fill form → click "Receive Stock"
-
-**Admin Grid:** Inventory Batches → Receive Stock button
-
-### Order Allocation
-
-When FEFO is enabled, orders automatically allocate from the soonest-expiring batches across all sources. Allocation:
-1. Reduces batch `qty_remaining`
-2. Creates a Magento inventory reservation
-3. Logs to audit history
-
-## Architecture
-
-```
-MageBatch/Inventory/
-├── Api/                    # Service contracts & data interfaces
-├── Block/Adminhtml/        # Admin dashboard blocks
-├── Controller/Adminhtml/   # Admin controllers (CRUD, receive, dashboard)
-├── Cron/                   # Scheduled tasks (expiry check)
-├── Model/                  # Business logic, resource models
-├── Observer/               # Event observers
-├── Plugin/                 # Magento plugins (reservation, product form)
-├── Ui/                     # UI components, data providers, action columns
-├── view/adminhtml/         # Admin templates, JS, layouts
-└── etc/                    # Module config, routes, ACL, schema
-```
-
-## Extensibility
-
-### Service Contracts
-
-- `BatchRepositoryInterface` — CRUD for batches
-- `FefoAllocationInterface` — FEFO allocation logic
-- `StockReceivingInterface` — Stock receiving
-- `HistoryRepositoryInterface` — Audit history
-
-### Plugins
-
-| Plugin | Target | Purpose |
-|--------|--------|---------|
-| `InventoryReservationPlacing` | `PlaceReservationsForSalesEventInterface` | FEFO allocation on order |
-| `ProductFormMetaPlugin` | `ProductDataProvider::getMeta()` | Batch accordion on product page |
-
-## Database Schema
-
-- `magebatch_inventory_batch` — Batch records
-- `magebatch_inventory_reservation` — FEFO reservation tracking
-- `magebatch_inventory_history` — Audit log
-
