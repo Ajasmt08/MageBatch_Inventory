@@ -12,7 +12,7 @@
         <column xsi:type="varchar" name="supplier" length="128" nullable="true"/>
         <column xsi:type="varchar" name="purchase_order" length="64" nullable="true"/>
         <column xsi:type="decimal" name="cost_price" scale="2" precision="12" nullable="true"/>
-        <column xsi:type="smallint" name="status" padding="6" nullable="false" default="1" comment="1=Active 2=Reserved 3=Expired 4=Recalled 5=Damaged 6=Quarantined 7=Sold Out"/>
+        <column xsi:type="smallint" name="status" padding="6" nullable="false" default="1" comment="1=Active 3=Expired 4=Recalled 7=Sold Out"/>
         <column xsi:type="text" name="notes" nullable="true"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">

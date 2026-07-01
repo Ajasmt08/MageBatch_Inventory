@@ -37,6 +37,15 @@ class BatchRepository implements BatchRepositoryInterface
     public function save(BatchInterface $batch): BatchInterface
     {
         try {
+            $originalStatus = null;
+            if ($batch->getBatchId()) {
+                $original = $this->batchFactory->create();
+                $this->resource->load($original, $batch->getBatchId());
+                if ($original->getBatchId()) {
+                    $originalStatus = (int)$original->getStatus();
+                }
+            }
+
             $this->resource->save($batch);
         } catch (\Exception $e) {
             throw new CouldNotSaveException(__('Could not save batch: %1', $e->getMessage()), $e);

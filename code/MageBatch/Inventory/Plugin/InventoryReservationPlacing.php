@@ -19,52 +19,33 @@ class InventoryReservationPlacing
         private CollectionFactory $batchCollectionFactory
     ) {}
 
-    public function aroundExecute(
+    public function beforeExecute(
         PlaceReservationsForSalesEventInterface $subject,
-        callable $proceed,
         array $items,
         SalesChannelInterface $salesChannel,
         SalesEventInterface $salesEvent
     ): void {
         if (!$this->config->isFefoEnabled()) {
-            $proceed($items, $salesChannel, $salesEvent);
             return;
         }
 
         if ($salesEvent->getType() !== SalesEventInterface::EVENT_ORDER_PLACED) {
-            $proceed($items, $salesChannel, $salesEvent);
             return;
         }
 
         $orderId = (int)$salesEvent->getObjectId();
         $batchSkus = $this->getBatchManagedSkus();
-        $batchItems = [];
-        $normalItems = [];
 
         foreach ($items as $item) {
             if (in_array($item->getSku(), $batchSkus, true)) {
-                $batchItems[] = $item;
-            } else {
-                $normalItems[] = $item;
+                $this->fefoAllocation->allocate(
+                    $item->getSku(),
+                    [],
+                    abs((float)$item->getQuantity()),
+                    $orderId,
+                    0
+                );
             }
-        }
-
-        foreach ($batchItems as $item) {
-            $this->fefoAllocation->allocate(
-                $item->getSku(),
-                [],
-                abs((float)$item->getQuantity()),
-                $orderId,
-                0
-            );
-        }
-
-        if (!empty($batchItems)) {
-            $proceed($batchItems, $salesChannel, $salesEvent);
-        }
-
-        if (!empty($normalItems)) {
-            $proceed($normalItems, $salesChannel, $salesEvent);
         }
     }
 

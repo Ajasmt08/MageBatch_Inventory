@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MageBatch\Inventory\Model;
 
-use MageBatch\Inventory\Api\Data\BatchSearchResultInterface;
+use MageBatch\Inventory\Api\BatchSearchResultInterface;
 use Magento\Framework\Api\SearchResults;
 
 class BatchSearchResult extends SearchResults implements BatchSearchResultInterface

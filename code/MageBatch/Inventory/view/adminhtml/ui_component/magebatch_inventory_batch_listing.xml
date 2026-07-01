@@ -80,7 +80,7 @@
                 <label translate="true">Expiry Date</label>
             </settings>
         </column>
-        <column name="status" component="Magento_Ui/js/grid/columns/select">
+        <column name="status" class="MageBatch\Inventory\Ui\Component\Batch\StatusColumn">
             <settings>
                 <filter>select</filter>
                 <options class="MageBatch\Inventory\Model\Batch\Source\Status"/>

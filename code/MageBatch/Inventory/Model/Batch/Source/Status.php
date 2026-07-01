@@ -12,12 +12,9 @@ class Status implements OptionSourceInterface
     {
         return [
             ['value' => BatchInterface::STATUS_ACTIVE, 'label' => __('Active')],
-            ['value' => BatchInterface::STATUS_SOLD_OUT, 'label' => __('Sold Out')],
             ['value' => BatchInterface::STATUS_EXPIRED, 'label' => __('Expired')],
             ['value' => BatchInterface::STATUS_RECALLED, 'label' => __('Recalled')],
-            ['value' => BatchInterface::STATUS_DAMAGED, 'label' => __('Damaged')],
-            ['value' => BatchInterface::STATUS_QUARANTINED, 'label' => __('Quarantined')],
-            ['value' => BatchInterface::STATUS_RESERVED, 'label' => __('Reserved')],
+            ['value' => BatchInterface::STATUS_SOLD_OUT, 'label' => __('Sold Out')],
         ];
     }
 }

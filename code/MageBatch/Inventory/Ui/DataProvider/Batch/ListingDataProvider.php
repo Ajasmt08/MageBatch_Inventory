@@ -39,6 +39,13 @@ class ListingDataProvider extends DataProvider
     public function getData(): array
     {
         $collection = $this->batchCollectionFactory->create();
-        return $collection->toArray();
+        $items = [];
+        foreach ($collection as $batch) {
+            $items[] = $batch->toArray();
+        }
+        return [
+            'items' => $items,
+            'totalRecords' => $collection->getSize(),
+        ];
     }
 }

@@ -9,5 +9,5 @@ interface BatchSearchResultInterface extends SearchResultsInterface
 {
     public function getItems(): array;
 
-    public function setItems(array $items): self;
+    public function setItems(array $items): void;
 }

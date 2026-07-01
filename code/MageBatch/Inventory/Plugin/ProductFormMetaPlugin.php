@@ -8,8 +8,10 @@ use Magento\Catalog\Ui\DataProvider\Product\Form\ProductDataProvider;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\UrlInterface;
+use Magento\Framework\View\Element\Template\Context as TemplateContext;
 use Magento\InventoryApi\Api\SourceRepositoryInterface;
 use MageBatch\Inventory\Api\Data\BatchInterface;
+use MageBatch\Inventory\Block\Adminhtml\BatchTableRenderer;
 use MageBatch\Inventory\Model\ResourceModel\Batch\CollectionFactory;
 
 class ProductFormMetaPlugin
@@ -20,7 +22,8 @@ class ProductFormMetaPlugin
         private SourceRepositoryInterface $sourceRepository,
         private SearchCriteriaBuilder $searchCriteriaBuilder,
         private CollectionFactory $batchCollectionFactory,
-        private ProductRepositoryInterface $productRepository
+        private ProductRepositoryInterface $productRepository,
+        private TemplateContext $templateContext
     ) {}
 
     public function afterGetMeta(ProductDataProvider $subject, array $meta): array
@@ -101,51 +104,10 @@ class ProductFormMetaPlugin
             $collection->addFieldToFilter(BatchInterface::PRODUCT_SKU, $sku);
             $collection->setOrder(BatchInterface::EXPIRY_DATE, \Magento\Framework\Data\Collection::SORT_ORDER_ASC);
 
-            $rows = '';
-            foreach ($collection as $batch) {
-                $statusLabels = [
-                    BatchInterface::STATUS_ACTIVE => 'Active',
-                    BatchInterface::STATUS_SOLD_OUT => 'Sold Out',
-                    BatchInterface::STATUS_EXPIRED => 'Expired',
-                    BatchInterface::STATUS_RECALLED => 'Recalled',
-                    BatchInterface::STATUS_DAMAGED => 'Damaged',
-                    BatchInterface::STATUS_QUARANTINED => 'Quarantined',
-                    BatchInterface::STATUS_RESERVED => 'Reserved',
-                ];
-                $status = (int)$batch->getStatus();
-                $statusLabel = (string)__($statusLabels[$status] ?? 'Unknown');
+            $block = new BatchTableRenderer($this->templateContext, ['batches' => $collection->getItems()]);
+            $block->setTemplate('MageBatch_Inventory::product/batch-table.phtml');
 
-                $cls = 'grid-severity-notice';
-                if ($status === BatchInterface::STATUS_EXPIRED || $status === BatchInterface::STATUS_RECALLED) {
-                    $cls = 'grid-severity-critical';
-                } elseif ($status === BatchInterface::STATUS_SOLD_OUT) {
-                    $cls = 'grid-severity-minor';
-                }
-
-                $rows .= '<tr>'
-                    . '<td>' . $batch->getBatchNumber() . '</td>'
-                    . '<td>' . $batch->getSourceCode() . '</td>'
-                    . '<td>' . number_format((float)$batch->getQtyRemaining(), 2) . '</td>'
-                    . '<td>' . $batch->getExpiryDate() . '</td>'
-                    . '<td><span class="' . $cls . '"><span>' . $statusLabel . '</span></span></td>'
-                    . '</tr>';
-            }
-
-            if (empty($rows)) {
-                return '<div class="message notice">' . __('No batches found for this product.') . '</div>';
-            }
-
-            return '<div class="admin__data-grid-wrap" style="margin-top:15px;max-height:300px;overflow-y:auto">'
-                . '<table class="data-grid">'
-                . '<thead><tr>'
-                . '<th class="data-grid-th">' . __('Batch #') . '</th>'
-                . '<th class="data-grid-th">' . __('Source') . '</th>'
-                . '<th class="data-grid-th">' . __('Qty Remaining') . '</th>'
-                . '<th class="data-grid-th">' . __('Expiry Date') . '</th>'
-                . '<th class="data-grid-th">' . __('Status') . '</th>'
-                . '</tr></thead>'
-                . '<tbody>' . $rows . '</tbody>'
-                . '</table></div>';
+            return $block->toHtml();
         } catch (\Exception $e) {
             return '<div class="message error">' . __('Could not load batch data.') . '</div>';
         }

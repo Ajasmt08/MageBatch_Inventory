@@ -21,11 +21,8 @@ interface BatchInterface
     public const CREATED_AT = 'created_at';
 
     public const STATUS_ACTIVE = 1;
-    public const STATUS_RESERVED = 2;
     public const STATUS_EXPIRED = 3;
     public const STATUS_RECALLED = 4;
-    public const STATUS_DAMAGED = 5;
-    public const STATUS_QUARANTINED = 6;
     public const STATUS_SOLD_OUT = 7;
 
     public function getBatchId(): ?int;

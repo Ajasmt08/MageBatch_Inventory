@@ -15,17 +15,11 @@ interface HistoryInterface
     const REASON = 'reason';
     const CREATED_AT = 'created_at';
 
-    const ACTION_CREATED = 'created';
     const ACTION_RECEIVED = 'received';
-    const ACTION_ADJUSTED = 'adjusted';
     const ACTION_ALLOCATED = 'allocated';
-    const ACTION_DEDUCTED = 'deducted';
     const ACTION_EXPIRED = 'expired';
-    const ACTION_RECALLED = 'recalled';
+    const ACTION_EDITED = 'edited';
     const ACTION_STATUS_CHANGE = 'status_change';
-    const ACTION_DAMAGED = 'damaged';
-    const ACTION_QUARANTINED = 'quarantined';
-    const ACTION_RESTORED = 'restored';
 
     public function getHistoryId(): ?int;
     public function setHistoryId(int $id): self;

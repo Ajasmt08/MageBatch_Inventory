@@ -30,7 +30,11 @@ class ReceivePost extends Action
                 $data['batch_number'] ?? '',
                 (float)($data['qty'] ?? 0),
                 $data['expiry_date'] ?? '',
-                $data['manufacturing_date'] ?? null
+                !empty($data['manufacturing_date']) ? $data['manufacturing_date'] : null,
+                !empty($data['supplier']) ? $data['supplier'] : null,
+                !empty($data['purchase_order']) ? $data['purchase_order'] : null,
+                !empty($data['cost_price']) ? (float)$data['cost_price'] : null,
+                !empty($data['notes']) ? $data['notes'] : null
             );
             $this->messageManager->addSuccessMessage(__('Stock received successfully.'));
         } catch (\Exception $e) {

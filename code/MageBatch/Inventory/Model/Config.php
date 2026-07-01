@@ -12,8 +12,6 @@ class Config
     const XML_PATH_ENABLE_FEFO = 'magebatch_inventory/general/enable_fefo';
     const XML_PATH_ENABLE_EXPIRY_PROCESSING = 'magebatch_inventory/general/enable_expiry_processing';
     const XML_PATH_ENABLE_EXPIRY_ALERTS = 'magebatch_inventory/general/enable_expiry_alerts';
-    const XML_PATH_ENABLE_BATCH_RECALL = 'magebatch_inventory/general/enable_batch_recall';
-    const XML_PATH_EXPIRY_WARNING_DAYS = 'magebatch_inventory/general/expiry_warning_days';
     const XML_PATH_NEAR_EXPIRY_THRESHOLD = 'magebatch_inventory/general/near_expiry_threshold';
     const XML_PATH_NOTIFICATION_EMAIL = 'magebatch_inventory/general/notification_email';
 
@@ -44,16 +42,6 @@ class Config
     public function isExpiryAlertsEnabled(): bool
     {
         return $this->isExpiryProcessingEnabled() && (bool)$this->scopeConfig->getValue(self::XML_PATH_ENABLE_EXPIRY_ALERTS);
-    }
-
-    public function isBatchRecallEnabled(): bool
-    {
-        return $this->isEnabled() && (bool)$this->scopeConfig->getValue(self::XML_PATH_ENABLE_BATCH_RECALL);
-    }
-
-    public function getExpiryWarningDays(): int
-    {
-        return (int)$this->scopeConfig->getValue(self::XML_PATH_EXPIRY_WARNING_DAYS);
     }
 
     public function getNearExpiryThreshold(): int

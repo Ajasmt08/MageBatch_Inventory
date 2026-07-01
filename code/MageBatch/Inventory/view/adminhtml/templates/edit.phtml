@@ -1,37 +1,108 @@
-<form action="<?= $block->getUrl('magebatch_inventory/batch/editPost') ?>" method="post">
+<?php
+/** @var \MageBatch\Inventory\Block\Adminhtml\Edit $block */
+$batch = $block->getBatch();
+$batchId = $batch ? (int)$batch->getBatchId() : 0;
+?>
+<form action="<?= $block->escapeUrl($block->getUrl('magebatch_inventory/batch/editPost')) ?>" method="post">
     <?= $block->getBlockHtml('formkey') ?>
+    <input type="hidden" name="batch_id" value="<?= $batchId ?>"/>
     <fieldset class="admin__fieldset">
-        <legend class="admin__legend"><?= $block->escapeHtml(__('Edit Batch')) ?></legend>
+        <legend class="admin__legend"><?= $block->escapeHtml(__('Edit Batch #%1', $batchId)) ?></legend>
+        <br/>
         <div class="admin__field">
-            <label class="admin__field-label" for="batch_id"><?= $block->escapeHtml(__('Batch ID')) ?></label>
+            <label class="admin__field-label" for="batch_number"><?= $block->escapeHtml(__('Batch Number')) ?></label>
             <div class="admin__field-control">
-                <input type="text" id="batch_id" name="batch_id" class="admin__control-text" readonly="true"/>
+                <input type="text" id="batch_number" name="batch_number"
+                       value="<?= $block->escapeHtmlAttr($batch ? $batch->getBatchNumber() : '') ?>"
+                       class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="sku"><?= $block->escapeHtml(__('SKU')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="sku"
+                       value="<?= $block->escapeHtmlAttr($batch ? $batch->getProductSku() : '') ?>"
+                       class="admin__control-text" disabled="disabled"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="source_code"><?= $block->escapeHtml(__('Source')) ?></label>
+            <div class="admin__field-control">
+                <select id="source_code" name="source_code" class="admin__control-select">
+                    <?php foreach ($block->getSourceOptions() as $option): ?>
+                        <option value="<?= $block->escapeHtmlAttr($option['value']) ?>"
+                            <?= ($batch && $batch->getSourceCode() === $option['value']) ? 'selected' : '' ?>>
+                            <?= $block->escapeHtml($option['label']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="qty"><?= $block->escapeHtml(__('Quantity')) ?></label>
+            <div class="admin__field-control">
+                <input type="number" id="qty" name="qty"
+                       value="<?= $block->escapeHtmlAttr($batch ? (float)$batch->getQtyRemaining() : '') ?>"
+                       class="admin__control-text" step="0.01"/>
             </div>
         </div>
         <div class="admin__field">
             <label class="admin__field-label" for="status"><?= $block->escapeHtml(__('Status')) ?></label>
             <div class="admin__field-control">
                 <select id="status" name="status" class="admin__control-select">
-                    <option value="1"><?= $block->escapeHtml(__('Active')) ?></option>
-                    <option value="2"><?= $block->escapeHtml(__('Sold Out')) ?></option>
-                    <option value="3"><?= $block->escapeHtml(__('Expired')) ?></option>
-                    <option value="4"><?= $block->escapeHtml(__('Recalled')) ?></option>
-                    <option value="5"><?= $block->escapeHtml(__('Damaged')) ?></option>
-                    <option value="6"><?= $block->escapeHtml(__('Quarantined')) ?></option>
-                    <option value="7"><?= $block->escapeHtml(__('Reserved')) ?></option>
+                    <?php foreach ($block->getStatusOptions() as $option): ?>
+                        <option value="<?= $block->escapeHtmlAttr($option['value']) ?>"
+                            <?= ($batch && (int)$batch->getStatus() === (int)$option['value']) ? 'selected' : '' ?>>
+                            <?= $block->escapeHtml($option['label']) ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </div>
         </div>
         <div class="admin__field">
             <label class="admin__field-label" for="expiry_date"><?= $block->escapeHtml(__('Expiry Date')) ?></label>
             <div class="admin__field-control">
-                <input type="date" id="expiry_date" name="expiry_date" class="admin__control-text"/>
+                <input type="date" id="expiry_date" name="expiry_date"
+                       value="<?= $block->escapeHtmlAttr($batch ? $batch->getExpiryDate() : '') ?>"
+                       class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="manufacturing_date"><?= $block->escapeHtml(__('Manufacturing Date')) ?></label>
+            <div class="admin__field-control">
+                <input type="date" id="manufacturing_date" name="manufacturing_date"
+                       value="<?= $block->escapeHtmlAttr($batch ? $batch->getManufacturingDate() : '') ?>"
+                       class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="supplier"><?= $block->escapeHtml(__('Supplier')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="supplier" name="supplier"
+                       value="<?= $block->escapeHtmlAttr($batch ? $batch->getSupplier() : '') ?>"
+                       class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="purchase_order"><?= $block->escapeHtml(__('Purchase Order')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="purchase_order" name="purchase_order"
+                       value="<?= $block->escapeHtmlAttr($batch ? $batch->getPurchaseOrder() : '') ?>"
+                       class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="cost_price"><?= $block->escapeHtml(__('Cost Price')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="cost_price" name="cost_price"
+                       value="<?= $block->escapeHtmlAttr($batch ? (float)$batch->getCostPrice() : '') ?>"
+                       class="admin__control-text"/>
             </div>
         </div>
         <div class="admin__field">
             <label class="admin__field-label" for="notes"><?= $block->escapeHtml(__('Notes')) ?></label>
             <div class="admin__field-control">
-                <textarea id="notes" name="notes" class="admin__control-textarea"></textarea>
+                <textarea id="notes" name="notes" class="admin__control-textarea"><?= $block->escapeHtml($batch ? $batch->getNotes() : '') ?></textarea>
             </div>
         </div>
         <div class="admin__field">

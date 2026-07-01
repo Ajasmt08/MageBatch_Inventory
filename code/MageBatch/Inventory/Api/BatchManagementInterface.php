@@ -11,9 +11,7 @@ interface BatchManagementInterface
 
     public function recall(int $batchId, ?string $reason = null): BatchInterface;
 
-    public function markDamaged(int $batchId, ?string $reason = null): BatchInterface;
+    public function applyStatusInventoryChanges(BatchInterface $batch): void;
 
-    public function quarantine(int $batchId, ?string $reason = null): BatchInterface;
-
-    public function restore(int $batchId, ?string $reason = null): BatchInterface;
+    public function syncQuantity(BatchInterface $batch, float $oldQty): void;
 }

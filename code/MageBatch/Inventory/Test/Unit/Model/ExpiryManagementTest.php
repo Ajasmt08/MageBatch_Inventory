@@ -51,15 +51,13 @@ class ExpiryManagementTest extends TestCase
         $collection->method('getIterator')->willReturn(new \ArrayIterator([$batch]));
 
         $this->collectionFactory->method('create')->willReturn($collection);
+        $this->batchRepository->method('save')->willReturn($batch);
 
         $history = $this->createMock(HistoryInterface::class);
         $this->historyFactory->method('create')->willReturn($history);
 
-        $this->batchRepository->expects($this->once())->method('save');
-        $this->historyRepository->expects($this->once())->method('save');
+        $result = $this->model->processExpiredBatches();
 
-        $count = $this->model->processExpiredBatches();
-
-        $this->assertEquals(1, $count);
+        $this->assertEquals(1, $result);
     }
 }

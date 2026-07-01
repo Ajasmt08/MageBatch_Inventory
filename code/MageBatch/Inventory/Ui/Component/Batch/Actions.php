@@ -22,12 +22,27 @@ class Actions extends Column
 
     public function prepareDataSource(array $dataSource): array
     {
-        if (isset($dataSource['data']['items'])) {
-            foreach ($dataSource['data']['items'] as &$item) {
+        if (isset($dataSource['data']['items']) && is_array($dataSource['data']['items'])) {
+            foreach ($dataSource['data']['items'] as $key => &$item) {
+                if (!is_array($item)) {
+                    continue;
+                }
                 $item[$this->getData('name')] = [
+                    'edit' => [
+                        'href' => $this->urlBuilder->getUrl('magebatch_inventory/batch/edit', ['id' => $item['batch_id'] ?? 0]),
+                        'label' => __('Edit'),
+                    ],
                     'history' => [
-                        'href' => $this->urlBuilder->getUrl('magebatch_inventory/batch/history', ['id' => $item['batch_id']]),
+                        'href' => $this->urlBuilder->getUrl('magebatch_inventory/batch/history', ['id' => $item['batch_id'] ?? 0]),
                         'label' => __('History'),
+                    ],
+                    'delete' => [
+                        'href' => $this->urlBuilder->getUrl('magebatch_inventory/batch/delete', ['id' => $item['batch_id'] ?? 0]),
+                        'label' => __('Delete'),
+                        'confirm' => [
+                            'title' => __('Delete Batch #%1', $item['batch_id'] ?? 0),
+                            'message' => __('Are you sure you want to delete Batch #%1?', $item['batch_id'] ?? 0),
+                        ],
                     ],
                 ];
             }

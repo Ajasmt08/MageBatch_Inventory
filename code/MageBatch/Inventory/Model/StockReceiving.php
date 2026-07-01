@@ -6,7 +6,6 @@ namespace MageBatch\Inventory\Model;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\InputException;
-use Magento\InventoryApi\Api\Data\SourceInterface;
 use Magento\InventoryApi\Api\Data\SourceInterfaceFactory;
 use Magento\InventoryApi\Api\Data\SourceItemInterfaceFactory;
 use Magento\InventoryApi\Api\SourceItemRepositoryInterface;
@@ -116,6 +115,7 @@ class StockReceiving implements StockReceivingInterface
 
         if ($sourceItem) {
             $sourceItem->setQuantity((float)$sourceItem->getQuantity() + $qty);
+            $sourceItem->setStatus(1);
         } else {
             $sourceItem = $this->sourceItemFactory->create();
             $sourceItem->setSku($sku);

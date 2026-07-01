@@ -55,9 +55,6 @@ class Batches extends Action
                 BatchInterface::STATUS_SOLD_OUT => 'Sold Out',
                 BatchInterface::STATUS_EXPIRED => 'Expired',
                 BatchInterface::STATUS_RECALLED => 'Recalled',
-                BatchInterface::STATUS_DAMAGED => 'Damaged',
-                BatchInterface::STATUS_RETURNED => 'Returned',
-                BatchInterface::STATUS_RESERVED => 'Reserved',
             ];
             $status = (int)$batch->getStatus();
             $statusLabel = (string)__($statusLabels[$status] ?? 'Unknown');
