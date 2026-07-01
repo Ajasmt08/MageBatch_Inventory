@@ -24,7 +24,7 @@ The **Batch Stock Management** accordion on the product edit page allows you to 
 
 ### 2. Dashboard
 
-![Dashboard](app/code/MageBatch/Inventory/img/2.png)
+![Dashboard](img/2.png)
 
 The **Dashboard** provides a quick overview of your batch inventory health:
 - Total active batches and units in stock
@@ -34,13 +34,13 @@ The **Dashboard** provides a quick overview of your batch inventory health:
 
 ### 3. Inventory Batches Grid
 
-![Inventory Batches Grid](app/code/MageBatch/Inventory/img/3.png)
+![Inventory Batches Grid](img/3.png)
 
 The **Inventory Batches** grid lists all batch records across products and sources. Use the toolbar to filter, sort, and search batches by ID, batch number, product SKU, source, quantity remaining, expiry date, or status. Each row has a **History** action to view the full audit trail for that batch. Use the **Receive Stock** button to add new inventory.
 
 ### 4. History Grid
 
-![History Grid](app/code/MageBatch/Inventory/img/4.png)
+![History Grid](img/4.png)
 
 The **History** grid is the audit log for all batch operations. Every stock movement is recorded with:
 - **Timestamp** — When the operation occurred
