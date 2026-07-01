@@ -1,0 +1,124 @@
+<?php
+/** @var \MageBatch\Inventory\Block\Adminhtml\Receive $block */
+?>
+<form action="<?= $block->getUrl('magebatch_inventory/batch/receivePost') ?>" method="post">
+    <?= $block->getBlockHtml('formkey') ?>
+    <fieldset class="admin__fieldset">
+        <legend class="admin__legend"><?= $block->escapeHtml(__('Receive Stock')) ?></legend>
+        <div class="admin__field">
+            <label class="admin__field-label" for="product_sku"><?= $block->escapeHtml(__('Product SKU')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="product_sku" name="product_sku" class="admin__control-text"
+                       placeholder="<?= $block->escapeHtmlAttr(__('Search by SKU or product name...')) ?>" required="true"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="source_code"><?= $block->escapeHtml(__('Source')) ?></label>
+            <div class="admin__field-control">
+                <select id="source_code" name="source_code" class="admin__control-select" required="true">
+                    <?php foreach ($block->getSourceOptions() as $option): ?>
+                        <option value="<?= $block->escapeHtmlAttr($option['value']) ?>"><?= $block->escapeHtml($option['label']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <div style="margin-top: 4px;">
+                    <a href="<?= $block->escapeUrl($block->getSourceManageUrl()) ?>" target="_blank"><?= $block->escapeHtml(__('Manage Sources')) ?></a>
+                </div>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="batch_number"><?= $block->escapeHtml(__('Batch Number')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="batch_number" name="batch_number" class="admin__control-text" required="true"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="qty"><?= $block->escapeHtml(__('Quantity')) ?></label>
+            <div class="admin__field-control">
+                <input type="number" id="qty" name="qty" class="admin__control-text" required="true" step="0.01"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="expiry_date"><?= $block->escapeHtml(__('Expiry Date')) ?></label>
+            <div class="admin__field-control">
+                <input type="date" id="expiry_date" name="expiry_date" class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="manufacturing_date"><?= $block->escapeHtml(__('Manufacturing Date')) ?></label>
+            <div class="admin__field-control">
+                <input type="date" id="manufacturing_date" name="manufacturing_date" class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="supplier"><?= $block->escapeHtml(__('Supplier')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="supplier" name="supplier" class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="purchase_order"><?= $block->escapeHtml(__('Purchase Order')) ?></label>
+            <div class="admin__field-control">
+                <input type="text" id="purchase_order" name="purchase_order" class="admin__control-text"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="cost_price"><?= $block->escapeHtml(__('Cost Price')) ?></label>
+            <div class="admin__field-control">
+                <input type="number" id="cost_price" name="cost_price" class="admin__control-text" step="0.01"/>
+            </div>
+        </div>
+        <div class="admin__field">
+            <label class="admin__field-label" for="notes"><?= $block->escapeHtml(__('Notes')) ?></label>
+            <div class="admin__field-control">
+                <textarea id="notes" name="notes" class="admin__control-textarea"></textarea>
+            </div>
+        </div>
+        <div class="admin__field">
+            <div class="admin__field-control">
+                <button type="submit" class="action-primary"><?= $block->escapeHtml(__('Receive Stock')) ?></button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<style>
+    .ui-autocomplete {
+        background: #fff;
+        border: 1px solid #adadad;
+        border-radius: 2px;
+        padding: 0;
+        list-style: none;
+        max-height: 300px;
+        max-width: 500px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        z-index: 1000;
+        box-sizing: border-box;
+    }
+    .ui-autocomplete li a {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+    }
+    .ui-autocomplete li {
+        padding: 6px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #e3e3e3;
+        list-style: none;
+    }
+    .ui-autocomplete li:hover,
+    .ui-autocomplete li.ui-state-focus {
+        background: #e2f0fc;
+    }
+    .ui-autocomplete .sku {
+        font-weight: 600;
+    }
+    .ui-autocomplete .name {
+        color: #666;
+    }
+</style>
+<script>
+    require(['MageBatch_Inventory/js/product-search'], function (productSearch) {
+        productSearch(document.getElementById('product_sku'), '<?= $block->escapeJs($block->getProductSearchUrl()) ?>');
+    });
+</script>

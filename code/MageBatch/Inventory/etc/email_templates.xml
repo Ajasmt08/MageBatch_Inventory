@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="magebatch_inventory_expiry_alert" label="Batch Expiry Alert" file="expiry_alert.html" type="html" module="MageBatch_Inventory" area="adminhtml"/>
+</config>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="MageBatch_Inventory::inventory" title="Inventory Batch Management" sortOrder="40">
+                    <resource id="MageBatch_Inventory::inventory_view" title="View Inventory" sortOrder="10"/>
+                    <resource id="MageBatch_Inventory::inventory_receive" title="Receive Stock" sortOrder="20"/>
+                    <resource id="MageBatch_Inventory::inventory_edit" title="Edit Batch" sortOrder="30"/>
+                    <resource id="MageBatch_Inventory::inventory_recall" title="Recall Batch" sortOrder="40"/>
+                    <resource id="MageBatch_Inventory::inventory_delete" title="Delete Batch" sortOrder="50"/>
+                    <resource id="MageBatch_Inventory::inventory_config" title="Configuration" sortOrder="70"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

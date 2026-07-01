@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MageBatch\Inventory\Api\Data\BatchInterface" type="MageBatch\Inventory\Model\Batch"/>
+    <preference for="MageBatch\Inventory\Api\BatchRepositoryInterface" type="MageBatch\Inventory\Model\BatchRepository"/>
+    <preference for="MageBatch\Inventory\Api\BatchSearchResultInterface" type="MageBatch\Inventory\Model\BatchSearchResult"/>
+    <preference for="MageBatch\Inventory\Api\Data\HistoryInterface" type="MageBatch\Inventory\Model\History"/>
+    <preference for="MageBatch\Inventory\Api\HistoryRepositoryInterface" type="MageBatch\Inventory\Model\HistoryRepository"/>
+    <preference for="MageBatch\Inventory\Api\StockReceivingInterface" type="MageBatch\Inventory\Model\StockReceiving"/>
+    <preference for="MageBatch\Inventory\Api\FefoAllocationInterface" type="MageBatch\Inventory\Model\FefoAllocation"/>
+    <preference for="MageBatch\Inventory\Api\BatchManagementInterface" type="MageBatch\Inventory\Model\BatchManagement"/>
+    <preference for="MageBatch\Inventory\Api\ExpiryManagementInterface" type="MageBatch\Inventory\Model\ExpiryManagement"/>
+
+    <type name="Magento\InventorySalesApi\Api\PlaceReservationsForSalesEventInterface">
+        <plugin name="magebatch_fefo_allocation" type="MageBatch\Inventory\Plugin\InventoryReservationPlacing" sortOrder="10"/>
+    </type>
+</config>

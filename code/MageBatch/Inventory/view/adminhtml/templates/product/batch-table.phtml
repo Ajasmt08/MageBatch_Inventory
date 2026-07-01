@@ -1,0 +1,36 @@
+<?php
+/** @var \MageBatch\Inventory\Block\Adminhtml\BatchTableRenderer $block */
+$batches = $block->getBatches();
+?>
+<?php if (empty($batches)): ?>
+    <div class="message notice"><?= $block->escapeHtml(__('No batches found for this product.')) ?></div>
+<?php else: ?>
+    <div class="admin__data-grid-wrap" style="margin-top:15px;max-height:300px;overflow-y:auto">
+        <table class="data-grid">
+            <thead>
+                <tr>
+                    <th class="data-grid-th"><?= $block->escapeHtml(__('Batch #')) ?></th>
+                    <th class="data-grid-th"><?= $block->escapeHtml(__('Source')) ?></th>
+                    <th class="data-grid-th"><?= $block->escapeHtml(__('Qty Remaining')) ?></th>
+                    <th class="data-grid-th"><?= $block->escapeHtml(__('Expiry Date')) ?></th>
+                    <th class="data-grid-th"><?= $block->escapeHtml(__('Status')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($batches as $batch): ?>
+                    <tr>
+                        <td><?= $block->escapeHtml($batch->getBatchNumber()) ?></td>
+                        <td><?= $block->escapeHtml($batch->getSourceCode()) ?></td>
+                        <td><?= $block->escapeHtml(number_format((float)$batch->getQtyRemaining(), 2)) ?></td>
+                        <td><?= $block->escapeHtml($batch->getExpiryDate()) ?></td>
+                        <td>
+                            <span class="<?= $block->escapeHtmlAttr($block->getStatusClass((int)$batch->getStatus())) ?>">
+                                <span><?= $block->escapeHtml($block->getStatusLabel((int)$batch->getStatus())) ?></span>
+                            </span>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif; ?>
