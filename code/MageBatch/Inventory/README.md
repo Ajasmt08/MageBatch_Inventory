@@ -53,7 +53,7 @@ This provides complete visibility into inventory changes for compliance and trou
 
 ### 5. Configuration
 
-![Configuration](app/code/MageBatch/Inventory/img/5.png)
+![Configuration](img/5.png)
 
 The module configuration is located at **Stores → Configuration → MageBatch → Inventory**:
 
