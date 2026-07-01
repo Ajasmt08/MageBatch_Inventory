@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
-    <menu>
-        <add id="MageBatch_Inventory::inventory" title="Inventory Batches" module="MageBatch_Inventory" sortOrder="50" parent="Magento_Catalog::catalog" resource="MageBatch_Inventory::inventory_view" action="magebatch_inventory/batch/index"/>
-        <add id="MageBatch_Inventory::receive" title="Receive Stock" module="MageBatch_Inventory" sortOrder="60" parent="Magento_Catalog::catalog" resource="MageBatch_Inventory::inventory_receive" action="magebatch_inventory/batch/receive"/>
-        <add id="MageBatch_Inventory::dashboard" title="Inventory Dashboard" module="MageBatch_Inventory" sortOrder="40" parent="Magento_Catalog::catalog" resource="MageBatch_Inventory::inventory_view" action="magebatch_inventory/dashboard/index"/>
-    </menu>
-</config>
